@@ -2,6 +2,9 @@ from cursesmenu import *
 from cursesmenu.items import *
 import sys
 
+sys.path.append('./src/')
+sys.path.append('./')
+
 # '1': Example
 # '2': Matrix A
 # '3': Rest

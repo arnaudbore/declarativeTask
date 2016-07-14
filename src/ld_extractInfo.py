@@ -1,7 +1,6 @@
 import sys
 from config import dataFolder
-from expyriment.misc import data_preprocessing, constants
-import map
+from expyriment.misc import data_preprocessing
 import numpy as np
 
 agg = data_preprocessing.Aggregator(data_folder=dataFolder,
