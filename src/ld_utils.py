@@ -1,12 +1,16 @@
-import numpy as np
-import os, ast, ntpath, pygame
+import ast
+import ntpath
+import os
+import pygame
 from datetime import datetime
-from dateutil.parser import parse
 
+import numpy as np
+from dateutil.parser import parse
 from expyriment import misc, stimuli
+from expyriment.io import Keyboard
 from expyriment.misc._timer import get_time
 from expyriment.misc.geometry import coordinates2position
-from expyriment.io import Keyboard
+
 from config import linesThickness, cardSize, colorLine, windowSize, bgColor, matrixSize, dataFolder, removeCards
 
 

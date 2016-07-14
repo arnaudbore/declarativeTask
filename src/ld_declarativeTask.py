@@ -1,11 +1,13 @@
-from config import *
-from ld_utils import setCursor, newRandomPresentation, getPreviousMatrix, path_leaf, readMouse
+import sys
+
+import numpy as np
 from expyriment import control, stimuli, io, design, misc
 from expyriment.misc import constants
-from ld_matrix import LdMatrix
-import numpy as np
-import sys
 from expyriment.misc._timer import get_time
+
+from ld_matrix import LdMatrix
+from ld_utils import setCursor, newRandomPresentation, getPreviousMatrix, path_leaf, readMouse
+from config import *
 
 if not windowMode:  # Check WindowMode and Resolution
     control.defaults.window_mode = windowMode

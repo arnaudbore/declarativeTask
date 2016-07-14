@@ -1,9 +1,11 @@
-from config import *
-from ld_utils import setCursor, getPreviousMatrix, newRandomPresentation
-from expyriment import control, stimuli, io, design, misc
-from ld_matrix import LdMatrix
-import numpy as np
 import sys
+
+import numpy as np
+from expyriment import control, stimuli, io, design, misc
+
+from ld_matrix import LdMatrix
+from ld_utils import setCursor, getPreviousMatrix, newRandomPresentation
+from config import *
 
 if not windowMode:  # Check WindowMode and Resolution
     control.defaults.window_mode = windowMode

@@ -1,5 +1,6 @@
-from config import windowMode, windowSize, restBGColor, restCrossColor, restCrossSize, restCrossThickness
 from expyriment import stimuli, control, design, io, misc
+
+from config import windowMode, windowSize, restBGColor, restCrossColor, restCrossSize, restCrossThickness
 
 control.defaults.window_mode = windowMode
 control.defaults.window_size = windowSize

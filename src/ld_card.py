@@ -1,5 +1,6 @@
-from expyriment.misc import constants
 from expyriment import stimuli
+from expyriment.misc import constants
+
 from config import templatePicture, cardColor
 
 

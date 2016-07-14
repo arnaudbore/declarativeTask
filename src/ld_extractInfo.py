@@ -1,6 +1,4 @@
-import sys, os
-
-sys.path.append(os.path.dirname(os.getcwd()))
+import sys
 
 from config import dataFolder
 from expyriment.misc import data_preprocessing

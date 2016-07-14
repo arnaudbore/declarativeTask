@@ -1,8 +1,10 @@
 import numpy as np
+from expyriment.stimuli import Circle
+
 from ld_card import LdCard
 from config import cardSize, linesThickness, cueCardColor, matrixTemplate, listPictures, removeCards, dotColor, bgColor
 from config import picturesFolder
-from expyriment.stimuli import Circle
+
 
 class LdMatrix(object):
     def __init__(self, size, windowSize):

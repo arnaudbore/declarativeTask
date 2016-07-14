@@ -1,8 +1,7 @@
 from cursesmenu import *
 from cursesmenu.items import *
-import sys, os
-
-cwd = os.getcwd()
+import sys
+import os
 
 # '1': Test Matrix A
 # '2': Matrix B
@@ -13,24 +12,24 @@ cwd = os.getcwd()
 menu = CursesMenu("Declarative Task - Day Two", 'Subject: ' + sys.argv[1])
 
 dayTwoTestMatrixA = CommandItem(text="Test Matrix A",
-                                command="PYTHONPATH=$PYTHONPATH:{} python src".format(cwd) + os.path.sep + "ld_declarativeTask.py ",
+                                command="python src" + os.path.sep + "ld_declarativeTask.py ",
                                 arguments="Day Two - Test, " + sys.argv[1],
                                 menu=menu,
                                 should_exit=False)
 
 dayTwoInterference = CommandItem(text="Matrix B",
-                                 command="PYTHONPATH=$PYTHONPATH:{} python src".format(cwd) + os.path.sep + "ld_declarativeTask.py ",
+                                 command="python src" + os.path.sep + "ld_declarativeTask.py ",
                                  arguments="Day Two - Interference, " + sys.argv[1],
                                  menu=menu,
                                  should_exit=False)
 
 dayTwoRest = CommandItem(text='Rest',
-                         command="PYTHONPATH=$PYTHONPATH:{} python src".format(cwd) + os.path.sep + "ld_rest.py",
+                         command="python src" + os.path.sep + "ld_rest.py",
                          menu=menu,
                          should_exit=False)
 
 dayTwoConfig = CommandItem(text='Show config file',
-                           command="PYTHONPATH=$PYTHONPATH:{} python src".format(cwd) + os.path.sep + "ld_showConfigFile.py",
+                           command="python src" + os.path.sep + "ld_showConfigFile.py",
                            menu=menu,
                            should_exit=False)
 

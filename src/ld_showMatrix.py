@@ -1,9 +1,11 @@
-from config import *
-from expyriment import control, stimuli, io, design, misc
 import ast
-from ld_matrix import LdMatrix
 import sys
+
 import numpy as np
+from expyriment import control, stimuli, io, design, misc
+
+from ld_matrix import LdMatrix
+from config import *
 
 control.defaults.window_mode = windowMode
 control.defaults.window_size = windowSize
