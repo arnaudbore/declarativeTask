@@ -34,7 +34,7 @@ textColor = (0, 0, 0)  # expyriment.misc.constants.C_BLACK
 
 
 textSize = 50
-matrixSize = (5, 5)
+matrixSize = (6, 6)
 cardSize = (90, 90)
 
 ''' Circles '''
