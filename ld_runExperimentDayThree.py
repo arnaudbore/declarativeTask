@@ -1,6 +1,8 @@
 from cursesmenu import *
 from cursesmenu.items import *
-import sys
+import sys, os
+
+cwd = os.getcwd()
 
 # '1': Test Matrix A
 # '2': Matrix B
@@ -11,29 +13,29 @@ import sys
 menu = CursesMenu("Declarative Task - Day One", 'Subject: ' + sys.argv[1])
 
 dayThreeTestMatrixA = CommandItem(text="Test Matrix A",
-                                  command="python ld_declarativeTask.py ",
+                                  command="PYTHONPATH=$PYTHONPATH:{} python src".format(cwd) + os.path.sep + "ld_declarativeTask.py ",
                                   arguments="Day Three - Test Learning, " + sys.argv[1],
                                   menu=menu,
                                   should_exit=False)
 
 dayThreeTestMatrixB = CommandItem(text="Test Matrix B",
-                                  command="python ld_declarativeTask.py ",
+                                  command="PYTHONPATH=$PYTHONPATH:{} python src".format(cwd) + os.path.sep + "ld_declarativeTask.py ",
                                   arguments="Day Three - Test Interference, " + sys.argv[1],
                                   menu=menu,
                                   should_exit=False)
 
 dayThreeRest = CommandItem(text='Rest',
-                         command="python ld_rest.py",
+                         command="PYTHONPATH=$PYTHONPATH:{} python src".format(cwd) + os.path.sep + "ld_rest.py",
                          menu=menu,
                          should_exit=False)
 
 dayThreeConfig = CommandItem(text='Show config file',
-                           command="python ld_showConfigFile.py",
+                           command="PYTHONPATH=$PYTHONPATH:{} python src".format(cwd) + os.path.sep + "ld_showConfigFile.py",
                            menu=menu,
                            should_exit=False)
 
 dayThreeRecognition = CommandItem(text="Recognition",
-                                  command="python ld_recognition.py ",
+                                  command="PYTHONPATH=$PYTHONPATH:{} python src".format(cwd) + os.path.sep + "ld_recognition.py ",
                                   arguments="Day Three - Recognition, " + sys.argv[1],
                                   menu=menu,
                                   should_exit=False)

@@ -1,15 +1,13 @@
-from expyriment import misc, stimuli
+import numpy as np
+import os, ast, ntpath, pygame
 from datetime import datetime
 from dateutil.parser import parse
-from config import linesThickness, cardSize, colorLine, windowSize, bgColor, matrixSize, dataFolder, removeCards
-import numpy as np
-import os
-import ast
-import ntpath
+
+from expyriment import misc, stimuli
 from expyriment.misc._timer import get_time
-import pygame
 from expyriment.misc.geometry import coordinates2position
 from expyriment.io import Keyboard
+from config import linesThickness, cardSize, colorLine, windowSize, bgColor, matrixSize, dataFolder, removeCards
 
 
 def checkWindowParameters(iWindowSize):

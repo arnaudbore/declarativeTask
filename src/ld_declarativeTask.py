@@ -7,7 +7,6 @@ import numpy as np
 import sys
 from expyriment.misc._timer import get_time
 
-
 if not windowMode:  # Check WindowMode and Resolution
     control.defaults.window_mode = windowMode
     control.defaults.window_size = misc.get_monitor_resolution()
