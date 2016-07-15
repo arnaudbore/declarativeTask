@@ -15,7 +15,7 @@ else:
     python = 'python'
 
 # Create the menu
-menu = CursesMenu("Declarative Task - Day One", 'Subject: ' + sys.argv[1])
+menu = CursesMenu("Declarative Task - Day Three", 'Subject: ' + sys.argv[1])
 
 dayThreeTestMatrixA = CommandItem(text="Test Matrix A",
                                   command=python + " src" + os.path.sep + "ld_declarativeTask.py ",
