@@ -96,7 +96,9 @@ def longestSubstringFinder(string1, string2):
 def getPreviousMatrix(subjectName, daysBefore, experienceName):
 
     currentDate = datetime.now()
-    dataFiles = os.listdir(dataFolder)
+
+    dataFiles = [each for each in os.listdir(dataFolder) if each.endswith('.xpd')]
+
     for dataFile in dataFiles:
         agg = misc.data_preprocessing.read_datafile(dataFolder + dataFile, only_header_and_variable_names=True)
 
