@@ -2,9 +2,10 @@ import sys
 
 import numpy as np
 from expyriment import control, stimuli, io, design, misc
+from expyriment.misc._timer import get_time
 
 from ld_matrix import LdMatrix
-from ld_utils import setCursor, getPreviousMatrix, newRandomPresentation
+from ld_utils import setCursor, getPreviousMatrix, newRandomPresentation, readMouse
 from config import *
 
 if not windowMode:  # Check WindowMode and Resolution
@@ -31,7 +32,7 @@ exp.add_data_variable_names(['Time', 'Response', 'CorrectAnswer', 'RT'])
 
 exp.add_experiment_info(['Learning: '])  # Save Subject Code
 learningMatrix = getPreviousMatrix(subjectName, 2, 'DayOne-Learning')
-exp.add_experiment_info(learningMatrix)  # Add listPictures
+exp.add_experiment_info([learningMatrix])  # Add listPictures
 
 interferenceMatrix = getPreviousMatrix(subjectName, 1, 'DayTwo-Interference')
 
@@ -39,7 +40,7 @@ exp.add_experiment_info(['RandomMatrix: '])  # Save Subject Code
 randomMatrix = m.findMatrix(learningMatrix)
 if np.any(randomMatrix == interferenceMatrix):
     randomMatrix = m.findMatrix(learningMatrix)
-exp.add_experiment_info(randomMatrix)  # Add listPictures
+exp.add_experiment_info([randomMatrix])  # Add listPictures
 
 
 exp.add_experiment_info(['Presentation Order: '])  # Save Presentation Order
@@ -124,17 +125,18 @@ exp.clock.wait(ISI)
 for nCard in range(presentationOrder.shape[1]):
     locationCard = int(presentationOrder[0][nCard])
 
-    m._matrix.item(locationCard).setPicture(listCards[nCard])
+    m._matrix.item(locationCard).setPicture(picturesFolder + listCards[nCard])
     m.plotCard(locationCard, True, bs, True)
     exp.clock.wait(presentationCard)
     m.plotCard(locationCard, False, bs, True)
     mouse.show_cursor(True, True)
 
-    position = None
-    [event_id, position, rt] = mouse.wait_press(buttons=None, duration=responseTime, wait_for_buttonup=True)
+    start = get_time()
+    rt, position = readMouse(start, mouseButton, responseTime)
+
     mouse.hide_cursor(True, True)
 
-    if event_id == 0:
+    if rt is not None:
         if matrixARectangle.overlapping_with_position(position):
             exp.data.add([exp.clock.time, 'MatrixA', bool(presentationOrder[1][nCard] == 0), rt])
             matrixA = stimuli.TextLine('  Matrix A  ',
@@ -156,7 +158,7 @@ for nCard in range(presentationOrder.shape[1]):
                                       max_width=None)
             matrixA.plot(bs)
             bs.present(False, True)
-            print presentationOrder[1][nCard] == 0
+            #print presentationOrder[1][nCard] == 0
 
         elif matrixNoneRectangle.overlapping_with_position(position):
             exp.data.add([exp.clock.time, 'MatrixNone', bool(presentationOrder[1][nCard]==1), rt])
@@ -179,11 +181,12 @@ for nCard in range(presentationOrder.shape[1]):
                                           max_width=None)
             matrixNone.plot(bs)
             bs.present(False, True)
-            print presentationOrder[1][nCard] == 1
+            #print presentationOrder[1][nCard] == 1
+
         else:
-            exp.data.add([exp.clock.time, 'MatrixNone', False, rt])
+            exp.data.add([exp.clock.time, 'None', False, rt])
     else:
-        exp.data.add([exp.clock.time, 'None', False, rt])
+        exp.data.add([exp.clock.time, 'NoResponse', False, rt])
 
     ISI = design.randomize.rand_int(min_max_ISI[0], min_max_ISI[1])
     exp.clock.wait(ISI)
