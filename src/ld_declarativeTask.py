@@ -59,15 +59,16 @@ if oldListPictures is False:
 
 newMatrix = m.findMatrix(oldListPictures, keepMatrix)  # Find newMatrix
 
+
 exp.add_experiment_info(['Positions pictures:'])
 
 control.initialize(exp)
-control.start(exp, auto_create_subject_id=True, skip_ready_screen=True)
 
 m.associatePictures(newMatrix)  # Associate Pictures to cards
 
+exp.add_experiment_info([m.listPictures])  # Add listPictures
 
-exp.add_experiment_info(m.listPictures)  # Add listPictures
+control.start(exp, auto_create_subject_id=True, skip_ready_screen=True)
 
 mouse = io.Mouse()  # Create Mouse instance
 mouse.set_logging(True)  # Log mouse
