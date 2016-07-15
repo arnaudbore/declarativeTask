@@ -37,7 +37,7 @@ m = LdMatrix(matrixSize, windowSize)  # Create Matrix
 if experimentName == 'DayOne-Learning':
     oldListPictures = None
     keepMatrix = True
-elif experimentName == 'DayTwo-Test':
+elif experimentName == 'DayTwo-TestLearning':
     oldListPictures = getPreviousMatrix(subjectName, 1, 'DayOne-Learning')
     keepMatrix = True
     nbBlocksMax = 1
@@ -59,12 +59,14 @@ if oldListPictures is False:
 
 newMatrix = m.findMatrix(oldListPictures, keepMatrix)  # Find newMatrix
 
+exp.add_experiment_info(['Positions pictures:'])
+
 control.initialize(exp)
 control.start(exp, auto_create_subject_id=True, skip_ready_screen=True)
 
 m.associatePictures(newMatrix)  # Associate Pictures to cards
 
-exp.add_experiment_info('Positions pictures:')
+
 exp.add_experiment_info(m.listPictures)  # Add listPictures
 
 mouse = io.Mouse()  # Create Mouse instance

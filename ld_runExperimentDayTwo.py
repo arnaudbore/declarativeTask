@@ -13,7 +13,7 @@ menu = CursesMenu("Declarative Task - Day Two", 'Subject: ' + sys.argv[1])
 
 dayTwoTestMatrixA = CommandItem(text="Test Matrix A",
                                 command="python src" + os.path.sep + "ld_declarativeTask.py ",
-                                arguments="Day Two - Test, " + sys.argv[1],
+                                arguments="Day Two - Test Learning, " + sys.argv[1],
                                 menu=menu,
                                 should_exit=False)
 

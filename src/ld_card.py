@@ -1,7 +1,7 @@
 from expyriment import stimuli
 from expyriment.misc import constants
 
-from config import templatePicture, cardColor
+from config import templatePicture, cardColor, picturesFolder
 
 
 class LdCard(object):
