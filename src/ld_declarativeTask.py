@@ -92,7 +92,7 @@ instructionRectangle = stimuli.Rectangle(size=(windowSize[0], m.gap * 2 + cardSi
 presentationOrder = newRandomPresentation()
 
 while currentCorrectAnswers < correctAnswersMax and nBlock < nbBlocksMax:
-
+    presentationOrder = newRandomPresentation(presentationOrder)
     if 1 != nbBlocksMax:
         exp.add_experiment_info(['Block {} - Presentation'.format(nBlock)])  # Add listPictures
         exp.add_experiment_info(presentationOrder)  # Add listPictures
