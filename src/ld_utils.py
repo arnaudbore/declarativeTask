@@ -66,7 +66,7 @@ def newRandomPresentation(oldPresentation=None):
 
     if oldPresentation is not None:
 
-        while len(longestSubstringFinder(str(oldPresentation), str(newPresentation)).split()) > 2 :
+        while len(longestSubstringFinder(str(oldPresentation), str(newPresentation)).split()) > 2:
             newPresentation = np.array(range(matrixSize[0]*matrixSize[1]))
 
             if removeCards:
@@ -109,7 +109,7 @@ def getPreviousMatrix(subjectName, daysBefore, experienceName):
         except (ValueError):
             continue
 
-        if (currentDate-previousDate).total_seconds() > 72000*daysBefore and (currentDate-previousDate).total_seconds() < 100800*daysBefore:
+        if daysBefore == 0 or ((currentDate-previousDate).total_seconds() > 72000*daysBefore and (currentDate-previousDate).total_seconds() < 100800*daysBefore):
             header = agg[3].split('\n#e ')
 
             indexSubjectName = header.index('Subject:') + 1

@@ -28,6 +28,12 @@ dayOneLearning = CommandItem(text="Matrix A",
                              menu=menu,
                              should_exit=False)
 
+dayOneTestMatrixA = CommandItem(text="Test Matrix A",
+                                command=python + " src" + os.path.sep + "ld_declarativeTask.py ",
+                                arguments="Day One - Test Learning, " + sys.argv[1],
+                                menu=menu,
+                                should_exit=False)
+
 dayOneRest = CommandItem(text='Rest',
                          command=python + " src" + os.path.sep + "ld_rest.py",
                          menu=menu,
@@ -40,6 +46,7 @@ dayOneConfig = CommandItem(text='Show config file',
 
 menu.append_item(dayOneExample)
 menu.append_item(dayOneLearning)
+menu.append_item(dayOneTestMatrixA)
 menu.append_item(dayOneRest)
 menu.append_item(dayOneConfig)
 

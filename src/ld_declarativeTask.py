@@ -37,6 +37,10 @@ m = LdMatrix(matrixSize, windowSize)  # Create Matrix
 if experimentName == 'DayOne-Learning':
     oldListPictures = None
     keepMatrix = True
+elif experimentName == 'DayOne-TestLearning':
+    oldListPictures = getPreviousMatrix(subjectName, 0, 'DayOne-Learning')
+    keepMatrix = True
+    nbBlocksMax = 1
 elif experimentName == 'DayTwo-TestLearning':
     oldListPictures = getPreviousMatrix(subjectName, 1, 'DayOne-Learning')
     keepMatrix = True
