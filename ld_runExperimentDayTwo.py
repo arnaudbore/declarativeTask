@@ -28,6 +28,12 @@ dayTwoInterference = CommandItem(text="Matrix B",
                                  menu=menu,
                                  should_exit=False)
 
+dayTwoTestMatrixB = CommandItem(text="Test Matrix B",
+                                command=python + " src" + os.path.sep + "ld_declarativeTask.py ",
+                                arguments="Day Two - Test Interference, " + sys.argv[1],
+                                menu=menu,
+                                should_exit=False)
+
 dayTwoRest = CommandItem(text='Rest',
                          command=python + " src" + os.path.sep + "ld_rest.py",
                          menu=menu,
@@ -41,6 +47,7 @@ dayTwoConfig = CommandItem(text='Show config file',
 menu.append_item(dayTwoTestMatrixA)
 if sys.argv[2] == 'True':
     menu.append_item(dayTwoInterference)
+    menu.append_item(dayTwoTestMatrixB)
 
 menu.append_item(dayTwoRest)
 menu.append_item(dayTwoConfig)

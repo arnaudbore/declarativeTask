@@ -45,6 +45,10 @@ elif experimentName == 'DayTwo-TestLearning':
     oldListPictures = getPreviousMatrix(subjectName, 1, 'DayOne-Learning')
     keepMatrix = True
     nbBlocksMax = 1
+elif experimentName == 'DayTwo-TestInterference':
+    oldListPictures = getPreviousMatrix(subjectName, 0, 'DayTwo-Interference')
+    keepMatrix = True
+    nbBlocksMax = 1
 elif experimentName == 'DayTwo-Interference':
     oldListPictures = getPreviousMatrix(subjectName, 1, 'DayOne-Learning')
     keepMatrix = False
@@ -205,7 +209,8 @@ while currentCorrectAnswers < correctAnswersMax and nBlock < nbBlocksMax:
 
     currentCorrectAnswers = correctAnswers[nBlock]  # Number of correct answers
 
-    if currentCorrectAnswers < correctAnswersMax and nBlock + 1 < nbBlocksMax:
+    #if currentCorrectAnswers < correctAnswersMax and nBlock + 1 < nbBlocksMax:
+    if nbBlocksMax != 1:
 
         instructions = stimuli.TextLine('You got ' + str(int(correctAnswers[nBlock])) + ' out of ' + str(m._matrix.size-len(removeCards)),
                                         position=(0, -windowSize[1]/float(2) + (2*m.gap + cardSize[1])/float(2)),
