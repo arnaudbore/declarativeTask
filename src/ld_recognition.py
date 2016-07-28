@@ -28,7 +28,7 @@ exp.add_experiment_info(['Subject: '])  # Save Subject Code
 exp.add_experiment_info([subjectName])  # Save Subject Code
 
 # Save time, Response, correctAnswer, RT
-exp.add_data_variable_names(['Time', 'Response', 'CorrectAnswer', 'RT'])
+exp.add_data_variable_names(['Time', 'Matrix', 'CorrectAnswer', 'RT'])
 
 exp.add_experiment_info(['Learning: '])  # Save Subject Code
 learningMatrix = getPreviousMatrix(subjectName, 2, 'DayOne-Learning')
@@ -125,6 +125,11 @@ exp.clock.wait(ISI)
 for nCard in range(presentationOrder.shape[1]):
     locationCard = int(presentationOrder[0][nCard])
 
+    if bool(presentationOrder[1][nCard] == 0):
+        showMatrix = 'MatrixA'
+    else:
+        showMatrix = 'MatrixRandom'
+
     m._matrix.item(locationCard).setPicture(picturesFolder + listCards[nCard])
     m.plotCard(locationCard, True, bs, True)
     exp.clock.wait(presentationCard)
@@ -138,7 +143,7 @@ for nCard in range(presentationOrder.shape[1]):
 
     if rt is not None:
         if matrixARectangle.overlapping_with_position(position):
-            exp.data.add([exp.clock.time, 'MatrixA', bool(presentationOrder[1][nCard] == 0), rt])
+            exp.data.add([exp.clock.time, showMatrix, bool(presentationOrder[1][nCard] == 0), rt])
             matrixA = stimuli.TextLine('  Matrix A  ',
                                           position=(-windowSize[0]/float(4),
                                                     -windowSize[1]/float(2) + (2*m.gap + cardSize[1])/float(2)),
@@ -161,7 +166,7 @@ for nCard in range(presentationOrder.shape[1]):
             #print presentationOrder[1][nCard] == 0
 
         elif matrixNoneRectangle.overlapping_with_position(position):
-            exp.data.add([exp.clock.time, 'MatrixNone', bool(presentationOrder[1][nCard]==1), rt])
+            exp.data.add([exp.clock.time, showMatrix, bool(presentationOrder[1][nCard]==1), rt])
             matrixNone = stimuli.TextLine('  None  ',
                                           position=(windowSize[0]/float(4),
                                                     -windowSize[1]/float(2) + (2*m.gap + cardSize[1])/float(2)),
@@ -184,9 +189,9 @@ for nCard in range(presentationOrder.shape[1]):
             #print presentationOrder[1][nCard] == 1
 
         else:
-            exp.data.add([exp.clock.time, 'None', False, rt])
+            exp.data.add([exp.clock.time, showMatrix, False, rt])
     else:
-        exp.data.add([exp.clock.time, 'NoResponse', False, rt])
+        exp.data.add([exp.clock.time, showMatrix, False, rt])
 
     ISI = design.randomize.rand_int(min_max_ISI[0], min_max_ISI[1])
     exp.clock.wait(ISI)
