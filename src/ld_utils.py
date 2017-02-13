@@ -10,6 +10,7 @@ from expyriment import misc, stimuli
 from expyriment.io import Keyboard
 from expyriment.misc._timer import get_time
 from expyriment.misc.geometry import coordinates2position
+from expyriment.misc import data_preprocessing
 
 from config import linesThickness, cardSize, colorLine, windowSize, bgColor, matrixSize, dataFolder, removeCards
 
@@ -217,3 +218,78 @@ def readMouse(startTime, button, duration=None):
     #
     #             ISI = design.randomize.rand_int(min_max_ISI[0], min_max_ISI[1])
     #             exp.clock.wait(ISI)
+
+
+class correctCards(object):
+    def __init__(self):
+        self.name = []
+        self.position = []
+        self.animals = []
+        self.clothes = []
+        self.fruits = []
+        self.vehicules = []
+
+class wrongCards(object):
+    def __init__(self):
+        self.name = []
+        self.position = []
+        self.animals = []
+        self.clothes = []
+        self.fruits = []
+        self.vehicules = []
+
+def extractCorrectAnswers(iFolder, iFile):
+    #
+    #
+    #
+    agg = data_preprocessing.Aggregator(data_folder=iFolder,
+                                    file_name=iFile)
+    header = data_preprocessing.read_datafile(iFolder + iFile, only_header_and_variable_names=True)
+    header = header[3].split('\n#e ')
+    data = {}
+    for variable in agg.variables:
+        data[variable] = agg.get_variable_data(variable)
+
+    validCards = correctCards()
+    inValidCards = wrongCards()
+
+    indexBlocks = np.unique(data['NBlock'])
+
+    for block in indexBlocks:
+        correctAnswers = np.logical_and(data['Picture']==data['Answers'], data['NBlock']==block)
+        wrongAnswers = np.logical_and(data['Picture']!=data['Answers'], data['NBlock']==block)
+
+    #print correctAnswers
+    #print wrongAnswers
+
+    matrixPictures = ast.literal_eval(header[header.index('Positions pictures:')+1].split('\n')[0].split('\n')[0])
+
+    for idx, val in enumerate(correctAnswers):
+        if val:
+            validCards.name.append(data['Answers'][idx][0])
+            validCards.position.append(matrixPictures.index(data['Answers'][idx]))
+
+    validCards.animals = [ word for word in validCards.name if word[0]=='a']
+    validCards.clothes = [ word for word in validCards.name if word[0]=='c']
+    validCards.vehicules = [ word for word in validCards.name if word[0]=='v']
+    validCards.fruits = [ word for word in validCards.name if word[0]=='f']
+
+
+    print data['Answers']
+
+    for idx, val in enumerate(wrongAnswers):
+        if val:
+            inValidCards.name.append(data['Answers'][idx][0])
+            if 'None' in data['Answers']:
+                inValidCards.position.append(100)
+            else:
+                inValidCards.position.append(matrixPictures.index(data['Answers'][idx]))
+
+    inValidCards.animals = [ word for word in inValidCards.name if word[0]=='a']
+    inValidCards.clothes = [ word for word in inValidCards.name if word[0]=='c']
+    inValidCards.vehicules = [ word for word in inValidCards.name if word[0]=='v']
+    inValidCards.fruits = [ word for word in inValidCards.name if word[0]=='f']
+
+    return data, validCards, inValidCards, matrixPictures
+
+
