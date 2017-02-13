@@ -233,6 +233,7 @@ class wrongCards(object):
     def __init__(self):
         self.name = []
         self.position = []
+        self.picture = []
         self.animals = []
         self.clothes = []
         self.fruits = []
@@ -274,12 +275,10 @@ def extractCorrectAnswers(iFolder, iFile):
     validCards.vehicules = [ word for word in validCards.name if word[0]=='v']
     validCards.fruits = [ word for word in validCards.name if word[0]=='f']
 
-
-    print data['Answers']
-
     for idx, val in enumerate(wrongAnswers):
         if val:
             inValidCards.name.append(data['Answers'][idx][0])
+            inValidCards.picture.append(data['Picture'][idx][0])
             if 'None' in data['Answers']:
                 inValidCards.position.append(100)
             else:

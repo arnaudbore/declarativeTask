@@ -45,42 +45,42 @@ for iFile in allFiles:
     header = header[3].split('\n#e ')
 
     for field in header:
-        #if "DayOne-TestLearning" in field and "Experiment" in field:
-        #    print 'DayOne-TestLearning'
-        #    dayOneTestLearning.header = header
-        #    dayOneTestLearning.ifile = iFile
-        #    dayOneTestLearning.data, dayOneTestLearning.correctCards, dayOneTestLearning.wrongCards, dayOneTestLearning.matrix = extractCorrectAnswers(subjectFolder, iFile)
-        #    break
-        #elif "DayTwo-TestLearning" in field and "Experiment" in field:
-        #    print 'DayTwo-TestLearning'
-        #    dayTwoTestLearning.header = header
-        #    dayTwoTestLearning.ifile = iFile
-        #    dayTwoTestLearning.data, dayTwoTestLearning.correctCards, dayTwoTestLearning.wrongCards, dayTwoTestLearning.matrix = extractCorrectAnswers(subjectFolder, iFile)
-        #    break
-        #elif "DayThree-TestLearning" in field and "Experiment" in field:
-        #    print 'DayThree-TestLearning'
-        #    dayThreeTestLearning.header = header
-        #    dayThreeTestLearning.ifile = iFile
-        #    dayThreeTestLearning.data, dayThreeTestLearning.correctCards, dayThreeTestLearning.wrongCards, dayThreeTestLearning.matrix = extractCorrectAnswers(subjectFolder, iFile)
-        #    break
-        if "DayTwo-TestInterference" in field and "Experiment" in field:
+        if "DayOne-TestLearning" in field and "Experiment" in field:
+            print 'DayOne-TestLearning'
+            dayOneTestLearning.header = header
+            dayOneTestLearning.ifile = iFile
+            dayOneTestLearning.data, dayOneTestLearning.correctCards, dayOneTestLearning.wrongCards, dayOneTestLearning.matrix = extractCorrectAnswers(subjectFolder, iFile)
+            break
+        elif "DayTwo-TestLearning" in field and "Experiment" in field:
+            print 'DayTwo-TestLearning'
+            dayTwoTestLearning.header = header
+            dayTwoTestLearning.ifile = iFile
+            dayTwoTestLearning.data, dayTwoTestLearning.correctCards, dayTwoTestLearning.wrongCards, dayTwoTestLearning.matrix = extractCorrectAnswers(subjectFolder, iFile)
+            break
+        elif "DayThree-TestLearning" in field and "Experiment" in field:
+            print 'DayThree-TestLearning'
+            dayThreeTestLearning.header = header
+            dayThreeTestLearning.ifile = iFile
+            dayThreeTestLearning.data, dayThreeTestLearning.correctCards, dayThreeTestLearning.wrongCards, dayThreeTestLearning.matrix = extractCorrectAnswers(subjectFolder, iFile)
+            break
+        elif "DayTwo-TestInterference" in field and "Experiment" in field:
             print 'DayTwo-TestInterference'
             dayTwoTestInterference.header = header
             dayTwoTestInterference.ifile = iFile
             isInterference = True
             dayTwoTestInterference.data, dayTwoTestInterference.correctCards, dayTwoTestInterference.wrongCards, dayTwoTestInterference.matrix = extractCorrectAnswers(subjectFolder, iFile)
             break
-        #elif "DayThree-TestInterference" in field and "Experiment" in field:
-        #    print 'DayThree-TestInterference'
-        #    dayThreeTestInterference.header = header
-        #    dayThreeTestInterference.ifile = iFile
-        #    dayThreeTestInterference.data, dayThreeTestInterference.correctCards, dayThreeTestInterference.wrongCards, dayThreeTestInterference.matrix = extractCorrectAnswers(subjectFolder, iFile)
-        #    break
-        #elif "recognition" in iFile:
-        #    print 'recognition'
-        #    dayThreeRecognition.header = header
-        #    dayThreeRecognition.ifile = iFile
-        #    break
+        elif "DayThree-TestInterference" in field and "Experiment" in field:
+            print 'DayThree-TestInterference'
+            dayThreeTestInterference.header = header
+            dayThreeTestInterference.ifile = iFile
+            dayThreeTestInterference.data, dayThreeTestInterference.correctCards, dayThreeTestInterference.wrongCards, dayThreeTestInterference.matrix = extractCorrectAnswers(subjectFolder, iFile)
+            break
+        elif "recognition" in iFile:
+            print 'recognition'
+            dayThreeRecognition.header = header
+            dayThreeRecognition.ifile = iFile
+            break
 
 unionConsolidation =  set(dayOneTestLearning.correctCards.name).intersection(dayTwoTestLearning.correctCards.name)
 unionReConsolidation = set(dayTwoTestLearning.correctCards.name).intersection(dayThreeTestLearning.correctCards.name)
@@ -160,14 +160,27 @@ if verbose:
             print str(len(newConsolidationInterference)) + ' new Images consolidated'
 
 
+        print '##################################'
+        print 'Check errors DayTwo-TestInterference'
+        for idx, val in enumerate(dayTwoTestInterference.wrongCards.name):
+            if 'None' not in val:
+                if dayOneTestLearning.matrix.index(dayTwoTestInterference.wrongCards.picture[idx]) == dayTwoTestInterference.wrongCards.position[idx]: # Check if position of other Matrix is the same as testing
+                    print 'Asked: ' + dayTwoTestInterference.wrongCards.picture[idx] + ' , ' + str(dayTwoTestInterference.matrix.index(dayTwoTestInterference.wrongCards.picture[idx])) + ' ; Answer: ' + val + ' , ' + str(dayTwoTestInterference.wrongCards.position[idx]) + ' (Matrix B) ' + dayOneTestLearning.matrix[dayOneTestLearning.matrix.index(dayTwoTestInterference.wrongCards.picture[idx])] + ' , ' + str(dayOneTestLearning.matrix.index(dayTwoTestInterference.wrongCards.picture[idx])) + ' (Matrix A)'
 
 
+        print '##################################'
+        print 'Check errors DayThree-TestLearning'
+        for idx, val in enumerate(dayThreeTestLearning.wrongCards.name):
+            if 'None' not in val:
+                if dayTwoTestInterference.matrix.index(dayThreeTestLearning.wrongCards.picture[idx]) == dayThreeTestLearning.wrongCards.position[idx]:
+                    print 'Asked: ' + dayThreeTestLearning.wrongCards.picture[idx] + ' , ' + str(dayThreeTestLearning.matrix.index(dayThreeTestLearning.wrongCards.picture[idx])) + ' ; Answer: ' + val + ' , ' + str(dayThreeTestLearning.wrongCards.position[idx]) + ' (Matrix A) ' + dayTwoTestInterference.matrix[dayTwoTestInterference.matrix.index(dayThreeTestLearning.wrongCards.picture[idx])] + ' , ' + str(dayTwoTestInterference.matrix.index(dayThreeTestLearning.wrongCards.picture[idx])) + ' (Matrix B)'
 
-
-
-
-
-
+        print '##################################'
+        print 'Check errors DayThree-TestInterference'
+        for idx, val in enumerate(dayThreeTestInterference.wrongCards.name):
+            if 'None' not in val:
+                if dayOneTestLearning.matrix.index(dayThreeTestInterference.wrongCards.picture[idx]) == dayThreeTestInterference.wrongCards.position[idx]:
+                    print 'Asked: ' + dayThreeTestInterference.wrongCards.picture[idx] + ' , ' + str(dayThreeTestInterference.matrix.index(dayThreeTestLearning.wrongCards.picture[idx])) + ' ; Answer: ' + val + ' , ' + str(dayThreeTestInterference.wrongCards.position[idx]) + ' (Matrix B) ' + dayOneTestLearning.matrix[dayOneTestLearning.matrix.index(dayThreeTestInterference.wrongCards.picture[idx])] + ' , ' + str(dayOneTestLearning.matrix.index(dayThreeTestInterference.wrongCards.picture[idx])) + ' (Matrix A)'
 
 
 
